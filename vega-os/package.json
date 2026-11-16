@@ -1,0 +1,30 @@
+{
+  "name": "tv-file-link-vega",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {"node": ">=22.14"},
+  "scripts": {
+    "postinstall": "npm --prefix module install",
+    "typecheck": "npm --prefix module run build:js && tsc --noEmit",
+    "build": "bash ./build.sh"
+  },
+  "dependencies": {
+    "@amazon-devices/react-native-kepler": "~4.0.0",
+    "react": "19.2.0",
+    "react-native": "0.83.0",
+    "tv-file-link-native": "file:./module"
+  },
+  "devDependencies": {
+    "@amazon-devices/kepler-cli-platform": "^0",
+    "@react-native-community/cli": "20.0.0",
+    "@react-native/babel-preset": "0.83.0",
+    "@react-native/metro-config": "0.83.0",
+    "@types/react": "^19.2.0",
+    "typescript": "5.8.3"
+  },
+  "kepler": {
+    "projectType": "application",
+    "appName": "TVFileLink",
+    "targets": ["tv"]
+  }
+}

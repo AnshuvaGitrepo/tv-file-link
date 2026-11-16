@@ -1,0 +1,20 @@
+{
+  "name": "tv-file-link-native",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "private": true,
+  "files": ["dist", "react-native.config.js"],
+  "scripts": {
+    "build:js": "tsc",
+    "build:native": "vega build -b Release"
+  },
+  "dependencies": {
+    "@amazon-devices/keplerscript-turbomodule-api": "1.2.5"
+  },
+  "devDependencies": {"typescript": "5.8.3"},
+  "kepler": {
+    "projectType": "turbomodule",
+    "targets": ["tv"]
+  }
+}

@@ -1,0 +1,24 @@
+# Signing keys: never commit (the build script creates a local one if missing)
+*.keystore
+*.jks
+
+# Build output
+/fire-os/*.apk
+/fire-os/build/
+/vega-os/build/
+/vega-os/generated/
+/vega-os/.kepler/
+node_modules/
+__pycache__/
+*.pyc
+
+# Guides are attached to GitHub Releases instead of the repo
+/*.pdf
+
+# Local working files (only the guide generator, capture script and tests are shared)
+/work/*
+!/work/make_guides.py
+!/work/capture-tv-file-link.mjs
+!/work/tests/
+/work/tests/data/
+/work/tests/results/

@@ -1,0 +1,18 @@
+schema-version = 1
+
+[package]
+title = "TV File Link"
+version = "1.4.0"
+id = "com.anshuva.tvfilelink"
+
+[os.version]
+min = "2.0"
+target = "2.0"
+
+[needs]
+[components]
+[[components.interactive]]
+id = "com.anshuva.tvfilelink.main"
+runtime-module = "/com.amazon.kepler.runtime.react_native_kepler_4@IReactNativeKepler_0"
+launch-type = "singleton"
+categories = ["com.amazon.category.main"]
