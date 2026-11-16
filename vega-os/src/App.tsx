@@ -228,7 +228,7 @@ export default function App() {
   return (
     <View style={[s.screen, compact && s.compact]}>
       <View style={s.header}>
-        <Image source={require('./as-logo.png')} accessibilityLabel="AS logo"
+        <Image source={require('./app-logo.png')} accessibilityLabel="TV File Link logo"
           style={[s.logo, compact && s.compactLogo]} />
         <Text style={[s.title, compact && s.compactTitle]}>TV File Link</Text>
       </View>

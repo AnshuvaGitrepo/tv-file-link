@@ -24,36 +24,35 @@ SHA-256. While video is drawing, uiautomator cannot read the screen, so playback
 
 ## Summary
 
-Final run on the release APK (16 November 2026). Note: the first attempt of the Android 9 file manager suite
-lost the screen reader soon after the emulator booted (7 checks passed, then 12 failed because the test left
-the app). The rerun on the same emulator and APK passed all checks; its results are below.
+Final run on the v1.4.1 release APK (16 November 2026), first attempt on both emulators. The only retry was a
+location tab that switched on the second key press (listed in the file manager results).
 
 | Suite | Emulator | Passed | Failed | Pending | Date |
 |---|---|---|---|---|---|
-| Wi-Fi transfer | Android 11 (API 30) | 38 | 0 | 0 | 2026-11-16 11:38 |
-| Wi-Fi transfer | Android 9 (API 28) | 38 | 0 | 0 | 2026-11-16 11:53 |
-| File manager | Android 11 (API 30) | 26 | 0 | 0 | 2026-11-16 11:38 |
-| File manager | Android 9 (API 28) | 27 | 0 | 0 | 2026-11-16 12:34 |
+| Wi-Fi transfer | Android 11 (API 30) | 38 | 0 | 0 | 2026-11-16 20:01 |
+| Wi-Fi transfer | Android 9 (API 28) | 38 | 0 | 0 | 2026-11-16 19:20 |
+| File manager | Android 11 (API 30) | 26 | 0 | 0 | 2026-11-16 20:01 |
+| File manager | Android 9 (API 28) | 27 | 0 | 0 | 2026-11-16 19:20 |
 
 ## Wi-Fi transfer: Android 11 (API 30)
 
 | # | Check | Result | Detail |
 |---|---|---|---|
 | 1 | v1.2 baseline: upload a file with the old release | PASS | connect 200, upload 201 |
-| 2 | Update installs over v1.2 (same app ID and signing key) | PASS | Success; versionName=1.4 (expected 1.4) |
+| 2 | Update installs over v1.2 (same app ID and signing key) | PASS | Success; versionName=1.4.1 (expected 1.4.1) |
 | 3 | v1.2 file still listed after the update | PASS | My files shows: kept-from-v1.2.txt |
 | 4 | App opens with remote focus on Start transfer | PASS | focused: Start transfer |
 | 5 | D-pad reaches transfer and file controls | PASS | Refresh: 3 key presses; New folder: 2 key presses; Start transfer: 1 key presses |
 | 6 | Create folder 'Photos' on the TV | PASS | Save pressed via dpad |
-| 7 | Start transfer shows address and six-digit code | PASS | address http://10.0.2.16:42833, code 641980 |
-| 8 | Browser page loads from the TV address | PASS | HTTP 200, 215196 bytes |
+| 7 | Start transfer shows address and six-digit code | PASS | address http://10.0.2.16:51565, code 437682 |
+| 8 | Browser page loads from the TV address | PASS | HTTP 200, 36666 bytes |
 | 9 | File list refused without connecting | PASS | HTTP 403 |
 | 10 | Correct code connects | PASS | HTTP 200 |
 | 11 | Upload 'Holiday video.bin' (6,291,579 bytes) to Photos | PASS | HTTP 201 |
 | 12 | Upload 'Travel itinerary.txt' (6,600 bytes) to My files | PASS | HTTP 201 |
 | 13 | Upload 'notes 0123.txt' (24 bytes) to My files | PASS | HTTP 201 |
 | 14 | Uploaded files appear in the right folders | PASS | root: ['Photos', 'Travel itinerary.txt', 'kept-from-v1.2.txt', 'notes 0123.txt']; Photos: ['Holiday video.bin'] |
-| 15 | Download 'Holiday video.bin' and compare SHA-256 | PASS | sent 6c84653178c85f2c..., received 6c84653178c85f2c... |
+| 15 | Download 'Holiday video.bin' and compare SHA-256 | PASS | sent 9b0aee93813d64a4..., received 9b0aee93813d64a4... |
 | 16 | Download 'Travel itinerary.txt' and compare SHA-256 | PASS | sent 8c96d49814fbe7c2..., received 8c96d49814fbe7c2... |
 | 17 | Download 'notes 0123.txt' and compare SHA-256 | PASS | sent c2487bb1681706f8..., received c2487bb1681706f8... |
 | 18 | Download the file stored by v1.2 | PASS | HTTP 200, match=True |
@@ -74,7 +73,7 @@ the app). The rerun on the same emulator and APK passed all checks; its results 
 | 33 | After 3 wrong codes, even the right code must wait | PASS | HTTP 429: Too many wrong codes. Wait 1 second and try again. |
 | 34 | Right code works after the short wait | PASS | HTTP 200 |
 | 35 | Key from the previous session is refused | PASS | HTTP 403 |
-| 36 | Code with a leading zero is shown in full and accepted | PASS | code 007535 after 3 restarts, HTTP 200 |
+| 36 | Code with a leading zero is shown in full and accepted | PASS | code 076046 after 28 restarts, HTTP 200 |
 | 37 | Leaving the app (Home) closes the server | PASS | connection refused after Home |
 | 38 | Reopened app shows Start transfer (no session) | PASS |  |
 
@@ -83,20 +82,20 @@ the app). The rerun on the same emulator and APK passed all checks; its results 
 | # | Check | Result | Detail |
 |---|---|---|---|
 | 1 | v1.2 baseline: upload a file with the old release | PASS | connect 200, upload 201 |
-| 2 | Update installs over v1.2 (same app ID and signing key) | PASS | Success; versionName=1.4 (expected 1.4) |
+| 2 | Update installs over v1.2 (same app ID and signing key) | PASS | Success; versionName=1.4.1 (expected 1.4.1) |
 | 3 | v1.2 file still listed after the update | PASS | My files shows: kept-from-v1.2.txt |
 | 4 | App opens with remote focus on Start transfer | PASS | focused: Start transfer |
 | 5 | D-pad reaches transfer and file controls | PASS | Refresh: 3 key presses; New folder: 2 key presses; Start transfer: 1 key presses |
 | 6 | Create folder 'Photos' on the TV | PASS | Save pressed via tap |
-| 7 | Start transfer shows address and six-digit code | PASS | address http://192.168.232.2:42838, code 110988 |
-| 8 | Browser page loads from the TV address | PASS | HTTP 200, 215196 bytes |
+| 7 | Start transfer shows address and six-digit code | PASS | address http://192.168.232.2:56111, code 289188 |
+| 8 | Browser page loads from the TV address | PASS | HTTP 200, 36666 bytes |
 | 9 | File list refused without connecting | PASS | HTTP 403 |
 | 10 | Correct code connects | PASS | HTTP 200 |
 | 11 | Upload 'Holiday video.bin' (6,291,579 bytes) to Photos | PASS | HTTP 201 |
 | 12 | Upload 'Travel itinerary.txt' (6,600 bytes) to My files | PASS | HTTP 201 |
 | 13 | Upload 'notes 0123.txt' (24 bytes) to My files | PASS | HTTP 201 |
 | 14 | Uploaded files appear in the right folders | PASS | root: ['Photos', 'Travel itinerary.txt', 'kept-from-v1.2.txt', 'notes 0123.txt']; Photos: ['Holiday video.bin'] |
-| 15 | Download 'Holiday video.bin' and compare SHA-256 | PASS | sent f5b3b6e8eeef4993..., received f5b3b6e8eeef4993... |
+| 15 | Download 'Holiday video.bin' and compare SHA-256 | PASS | sent d8d1c635fbebf07b..., received d8d1c635fbebf07b... |
 | 16 | Download 'Travel itinerary.txt' and compare SHA-256 | PASS | sent 8c96d49814fbe7c2..., received 8c96d49814fbe7c2... |
 | 17 | Download 'notes 0123.txt' and compare SHA-256 | PASS | sent c2487bb1681706f8..., received c2487bb1681706f8... |
 | 18 | Download the file stored by v1.2 | PASS | HTTP 200, match=True |
@@ -117,7 +116,7 @@ the app). The rerun on the same emulator and APK passed all checks; its results 
 | 33 | After 3 wrong codes, even the right code must wait | PASS | HTTP 429: Too many wrong codes. Wait 1 second and try again. |
 | 34 | Right code works after the short wait | PASS | HTTP 200 |
 | 35 | Key from the previous session is refused | PASS | HTTP 403 |
-| 36 | Code with a leading zero is shown in full and accepted | PASS | code 049769 after 9 restarts, HTTP 200 |
+| 36 | Code with a leading zero is shown in full and accepted | PASS | code 024569 after 10 restarts, HTTP 200 |
 | 37 | Leaving the app (Home) closes the server | PASS | connection refused after Home |
 | 38 | Reopened app shows Start transfer (no session) | PASS |  |
 
@@ -125,8 +124,8 @@ the app). The rerun on the same emulator and APK passed all checks; its results 
 
 | # | Check | Result | Detail |
 |---|---|---|---|
-| 1 | Install v1.4 | PASS | Success |
-| 2 | Test files in shared storage (images, text, WAV, MP4 from screenrecord, nested folder) | PASS | Holiday , clip.mp4 , notes.txt , photo1.png , photo2.png , song.wav; clip.mp4 28427 bytes |
+| 1 | Install the new APK | PASS | Success |
+| 2 | Test files in shared storage (images, text, WAV, MP4 from screenrecord, nested folder) | PASS | Holiday , clip.mp4 , notes.txt , photo1.png , photo2.png , song.wav; clip.mp4 28481 bytes |
 | 3 | Location tabs shown | PASS | My files, Internal storage |
 | 4 | Internal storage asks for access first | PASS | Allow storage access button shown |
 | 5 | Allow opens the All files access screen (Android 11) | PASS | com.android.tv.settings/.device.apps.AppManagementActivity |
@@ -139,7 +138,7 @@ the app). The rerun on the same emulator and APK passed all checks; its results 
 | 12 | Audio player plays, Select pauses and resumes | PASS | audio service: started -> paused -> started |
 | 13 | Back closes the player and stops playback | PASS | audio service after Back: released |
 | 14 | Video player opens and plays the MP4 (H.264) | PASS | media.player shows the app's video/avc session |
-| 15 | Details shows type, size and date | PASS | photo1.png Type: image/png Size: 4.7 KB (4859 bytes) Modified: Nov 16, 2026 5:40 AM Location: Internal storage / Download/TVFL-Test OK |
+| 15 | Details shows type, size and date | PASS | photo1.png Type: image/png Size: 4.7 KB (4859 bytes) Modified: Nov 16, 2026 2:02 PM Location: Internal storage / Download/TVFL-Test OK |
 | 16 | Sort by size puts the largest file first | PASS | order: song.wav, clip.mp4, photo2.png, photo1.png, notes.txt |
 | 17 | Copy from internal storage, Paste into My files | PASS | button 'Paste: photo1.png'; My files: ['photo1.png'] |
 | 18 | Move from internal storage into My files (original removed) | PASS | button 'Move here: notes.txt' pressed=True (focus before: Location My files); app: ['Moved notes.txt.']; source gone=True; My files: ['photo1.png', 'notes.txt'] |
@@ -156,8 +155,8 @@ the app). The rerun on the same emulator and APK passed all checks; its results 
 
 | # | Check | Result | Detail |
 |---|---|---|---|
-| 1 | Install v1.4 | PASS | Success |
-| 2 | Test files in shared storage (images, text, WAV, MP4 from screenrecord, nested folder) | PASS | Holiday , clip.mp4 , notes.txt , photo1.png , photo2.png , song.wav; clip.mp4 28163 bytes |
+| 1 | Install the new APK | PASS | Success |
+| 2 | Test files in shared storage (images, text, WAV, MP4 from screenrecord, nested folder) | PASS | Holiday , clip.mp4 , notes.txt , photo1.png , photo2.png , song.wav; clip.mp4 28220 bytes |
 | 3 | Location tabs shown | PASS | My files, Internal storage |
 | 4 | Internal storage asks for access first | PASS | Allow storage access button shown |
 | 5 | Allow shows the Storage permission prompt (Android 9) | PASS | Allow TV File Link to access photos, media, and files on your device? You can change this later in Settings > Apps Allow Deny |
@@ -171,7 +170,7 @@ the app). The rerun on the same emulator and APK passed all checks; its results 
 | 13 | Audio player plays, Select pauses and resumes | PASS | audio service: started -> paused -> started |
 | 14 | Back closes the player and stops playback | PASS | audio service after Back: released |
 | 15 | Video player opens and plays the MP4 (H.264) | PASS | media.player shows the app's video/avc session |
-| 16 | Details shows type, size and date | PASS | photo1.png Type: image/png Size: 4.7 KB (4859 bytes) Modified: Nov 16, 2026 6:36 AM Location: Internal storage / Download/TVFL-Test OK |
+| 16 | Details shows type, size and date | PASS | photo1.png Type: image/png Size: 4.7 KB (4859 bytes) Modified: Nov 16, 2026 1:19 PM Location: Internal storage / Download/TVFL-Test OK |
 | 17 | Sort by size puts the largest file first | PASS | order: song.wav, clip.mp4, photo2.png, photo1.png, notes.txt |
 | 18 | Copy from internal storage, Paste into My files | PASS | button 'Paste: photo1.png'; My files: ['photo1.png'] |
 | 19 | Move from internal storage into My files (original removed) | PASS | button 'Move here: notes.txt' pressed=True (focus before: Location My files); app: ['Moved notes.txt.']; source gone=True; My files: ['photo1.png', 'notes.txt'] |
@@ -186,7 +185,7 @@ the app). The rerun on the same emulator and APK passed all checks; its results 
 
 ## Also verified on the build PC
 
-- APK: v2 + v3 signature, certificate SHA-256 `237eabf4...d4ac8ccf` (same as v1.2), versionCode 5 / 1.4, zipalign, ARM 32/64-bit libraries.
+- APK: v2 + v3 signature, certificate SHA-256 `237eabf4...d4ac8ccf` (same as v1.2), versionCode 6 / 1.4.1, zipalign, ARM 32/64-bit libraries.
 - Vega: `npm run typecheck` and `react-native bundle --platform kepler` succeed; shared C++ compiles for ARM64.
 
 ## Pending (needs hardware)

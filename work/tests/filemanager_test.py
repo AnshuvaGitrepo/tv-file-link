@@ -1,5 +1,5 @@
 """
-File manager test for TV File Link v1.4 on an Android TV emulator (Android 11 or Android 9 image).
+File manager test for TV File Link (v1.4 and later) on an Android TV emulator (Android 11 or Android 9 image).
 
 Drives the TV app with D-pad key events and checks the results with adb (shared storage) and
 with the Wi-Fi transfer API (the app library). Usage:
@@ -224,10 +224,10 @@ def main():
     assets = t.TESTS / "data" / "fm"
     make_assets(assets)
 
-    # Fresh install of v1.4 (no storage access yet), test files in shared storage
+    # Fresh install of the new APK (no storage access yet), test files in shared storage
     t.adb("uninstall", PKG, check=False)
     out = t.adb("install", t.NEW_APK, check=False)
-    record("Install v1.4", "Success" in out, out.strip().splitlines()[-1] if out.strip() else "")
+    record("Install the new APK", "Success" in out, out.strip().splitlines()[-1] if out.strip() else "")
     sh(f"rm -rf {DEV}; mkdir -p {DEV}")
     t.adb("push", str(assets) + "/.", DEV)
     t.launch()  # record the app screen (moving focus) as the sample video

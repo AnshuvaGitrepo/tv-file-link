@@ -1,6 +1,6 @@
 # Build and test the Vega OS edition
 
-Status: source ready (v1.4.0). TypeScript type check and the JavaScript bundle pass on Windows. The VPKG and the device test are **pending**: they need the steps below.
+Status: source ready (v1.4.1). TypeScript type check and the JavaScript bundle pass on Windows. The VPKG and the device test are **pending**: they need the steps below.
 
 ## 1. Host
 
@@ -36,7 +36,7 @@ Enable developer mode on the Vega Stick, register it with the Vega CLI, then ins
 
 ## 5. Device checks (record results in docs/TESTING.md)
 
-1. App opens, AS logo, focus on Start transfer.
+1. App opens, app logo, focus on Start transfer.
 2. Start transfer: address + six-digit code shown.
 3. **Incoming connection:** on a phone on the same Wi-Fi, open the address. If the page loads, enter the code and upload and download a file (compare checksums). This is the key unknown on Vega.
 4. File manager (My files): New folder, Copy + Paste, Move here, Rename, Delete a folder with contents (warning shows the item count), Details, Sort, image viewer, text viewer.

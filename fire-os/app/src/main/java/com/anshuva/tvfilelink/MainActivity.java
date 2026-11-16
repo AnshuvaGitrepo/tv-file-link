@@ -123,8 +123,8 @@ public final class MainActivity extends Activity {
         header.setGravity(Gravity.CENTER_VERTICAL);
         header.setPadding(0, 0, 0, dp(compact ? 8 : 14));
         ImageView logo = new ImageView(this);
-        logo.setImageResource(R.drawable.as_logo);
-        logo.setContentDescription("AS logo");
+        logo.setImageResource(R.drawable.app_logo);
+        logo.setContentDescription("TV File Link logo");
         logo.setBackground(shape(ROW, 12, 0xff645637));
         logo.setPadding(dp(1), dp(1), dp(1), dp(1));
         logo.setClipToOutline(true);

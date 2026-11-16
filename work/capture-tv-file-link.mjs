@@ -7,9 +7,9 @@ import { fileURLToPath } from 'node:url';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = join(root, 'screenshots');
-const logo = await readFile(join(root, 'shared', 'as-logo.png'));
+const logo = await readFile(join(root, 'shared', 'app-logo.png'));
 const portal = (await readFile(join(root, 'shared', 'portal.html'), 'utf8'))
-  .replace('{{AS_LOGO}}', logo.toString('base64'));
+  .replace('{{APP_LOGO}}', logo.toString('base64'));
 const preview = await readFile(join(root, 'work', 'tv-layout-preview.html'));
 const fixtures = [
   { name: 'Photos', folder: true, size: 0 },
@@ -19,7 +19,7 @@ const fixtures = [
 
 const server = createServer((req, res) => {
   const path = new URL(req.url, 'http://localhost').pathname;
-  if (path === '/as-logo.png') {
+  if (path === '/app-logo.png') {
     res.setHeader('Content-Type', 'image/png');
     res.end(logo);
     return;

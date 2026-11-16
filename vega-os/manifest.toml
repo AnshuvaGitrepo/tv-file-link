@@ -2,7 +2,7 @@ schema-version = 1
 
 [package]
 title = "TV File Link"
-version = "1.4.0"
+version = "1.4.1"
 id = "com.anshuva.tvfilelink"
 
 [os.version]

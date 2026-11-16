@@ -27,7 +27,7 @@ W, H = letter
 M = 45
 INNER = W - 2 * M
 BOTTOM = 734  # content must end above the footer rule (746)
-VERSION, DATE = "v1.4", "16 November 2026"
+VERSION, DATE = "v1.4.1", "16 November 2026"
 
 for name, file in [("UI", "segoeui.ttf"), ("UI-Bold", "segoeuib.ttf"), ("Mono", "consola.ttf"), ("Mono-Bold", "consolab.ttf")]:
     pdfmetrics.registerFont(TTFont(name, "C:/Windows/Fonts/" + file))
@@ -334,7 +334,7 @@ def render_suite(d, suite):
     passed = sum(r["result"] == "PASS" for r in res)
     pending = sum(r["result"] == "PENDING" for r in res)
     failed = len(res) - passed - pending
-    summary = f"{passed} passed, {failed} failed" + (f", {pending} pending" if pending else "") + f" ({suite['date']}, final v1.4 APK)."
+    summary = f"{passed} passed, {failed} failed" + (f", {pending} pending" if pending else "") + f" ({suite['date']}, final v1.4.1 APK)."
     y = d.title(suite["title"], summary)
     y = d.note("Where this ran", suite["env"] + " on the Windows build PC. The TV app was driven with D-pad key events; results were checked with adb and, for My files, through the Wi-Fi transfer API (same requests as the browser page). Video and audio playback was checked in Android's media and audio services.", M, y, INNER, BLUE)
     widths = [26, 196, 50, INNER - 272]
@@ -444,7 +444,7 @@ def user_guide(total=99):
     y = d.table(rows, [110, INNER - 110], M, y, size=9.5)
     if (SHOTS / "fm-internal-storage-emulator.png").exists():
         e = d.pic("fm-internal-storage-emulator.png", M + 40, y + 2, INNER - 80, max_h=250)
-        y = d.text("Internal storage tab with the test folder. Captured from v1.4 on the Android TV emulator; names, sizes and dates are sample values.",
+        y = d.text("Internal storage tab with the test folder. Captured from v1.4.1 on the Android TV emulator; names, sizes and dates are sample values.",
                    M + 40, e + 6, INNER - 80, 8.5, 11.5, SUB) + 8
     d.check(y, "file manager page")
 
@@ -517,7 +517,7 @@ def user_guide(total=99):
     y = d.title("More help", "Common questions about files and versions.", 100)
     rows = [["Question", "Answer"],
             ["Where are the files stored?", "In the app's private library on the TV (My files). Other apps cannot see them, and they are removed if TV File Link is uninstalled. Download anything you want to keep before uninstalling."],
-            ["Do I keep my files when I update?", "Yes. Version 1.4 installs over 1.2 and 1.3 and keeps My files. This was checked on the Android TV emulator."],
+            ["Do I keep my files when I update?", "Yes. Version 1.4.1 installs over 1.2, 1.3 and 1.4 and keeps My files. This was checked on the Android TV emulator."],
             ["Does it use the internet?", "No. The phone or computer connects straight to the TV on your local network."],
             ["Can two phones connect at once?", "Yes, each device enters the code and gets its own session, up to 8 per session."],
             ["Can the browser see my USB drive or Downloads?", "No. The browser only sees My files. To send a file elsewhere, copy or move it on the TV with the file manager."],
@@ -545,13 +545,13 @@ def install_guide(total=99):
             "Which package belongs to which Fire TV operating system, how to install each build, what to check on first run, and what has been tested so far.",
             [("PACKAGES", "Fire OS APK, Vega VPKG", "packages"), ("INSTALL", "Step by step", "fireos"),
              ("TEST RESULTS", f"{TOTAL_PASS} of {TOTAL_CHECKS} checks passed", "results")], cover_art,
-            ("Status at a glance", "Fire OS APK v1.4 (transfer + file manager): built, signed and tested on Android 11 and Android 9 TV emulators; physical Fire TV test pending. Vega OS: source ready; VPKG build and device test pending."))
+            ("Status at a glance", "Fire OS APK v1.4.1 (transfer + file manager): built, signed and tested on Android 11 and Android 9 TV emulators; physical Fire TV test pending. Vega OS: source ready; VPKG build and device test pending."))
 
     # 2 - packages
     d.new_page("WHICH PACKAGE", "packages")
     y = d.title("Pick the package for your Stick", "Check the OS under Settings > My Fire TV (or Device & Software) > About on the TV.")
     rows = [["TV operating system", "Package", "Status"],
-            ["<b>Fire OS</b> 6, 7 or 8 (Android-based Fire TV Sticks and Fire TV devices)", "fire-os/TV-File-Link-Fire-OS.apk", "BUILT  signed APK, v1.4"],
+            ["<b>Fire OS</b> 6, 7 or 8 (Android-based Fire TV Sticks and Fire TV devices)", "fire-os/TV-File-Link-Fire-OS.apk", "BUILT  signed APK, v1.4.1"],
             ["<b>Vega OS</b> (Fire TV devices that run Amazon's Vega OS)", "vega-os/build/*.vpkg (to be produced)", "PENDING  source only"]]
     y = d.table(rows, [205, 175, INNER - 380], M, y, status_col=2, size=9.4)
     y = d.text("<b>Fire OS APK facts</b> (verified with apksigner and aapt2 on the build PC)", M, y + 4, INNER, 12, 16, INK) + 6
@@ -560,7 +560,7 @@ def install_guide(total=99):
     digest = hashlib.sha256(apk.read_bytes()).hexdigest()
     rows = [["Item", "Value"],
             ["App ID", "com.anshuva.tvfilelink (unchanged from v1.2)"],
-            ["Version", "1.4 (versionCode 5). Earlier: 1.3 (versionCode 4), 1.2 (versionCode 3)"],
+            ["Version", "1.4.1 (versionCode 6). Earlier: 1.4 (versionCode 5), 1.3 (versionCode 4), 1.2 (versionCode 3)"],
             ["Minimum OS", "Android 7.0 / API 24 (Fire OS 6 and newer); target API 34"],
             ["Permissions", "Internet, network state, storage (READ/WRITE_EXTERNAL_STORAGE up to Android 9/10, MANAGE_EXTERNAL_STORAGE on Android 11) for the file manager"],
             ["Signing", "APK Signature Scheme v2 and v3. Certificate CN=TV File Link Sideload, SHA-256 237eabf4 4bc7c3a0 78b1eb8a 74ba9228 4313b3d6 a987f247 131d4c1c d4ac8ccf (same key as v1.2, so it updates in place)"],
@@ -587,7 +587,7 @@ def install_guide(total=99):
         y += 26
     y = d.text("Replace FIRE_TV_IP with the Stick's address. <b>-r</b> replaces an installed copy and keeps its files.", M + 34, y, INNER - 34, 9.5, 13, SUB) + 12
     y = d.step(2, "Open the app", "TV File Link appears in Your Apps &amp; Channels with the AS banner. You can also use the third command above.", M, y, INNER)
-    y = d.note("Update from v1.2 or v1.3", "v1.4 uses the same app ID and signing key, so <b>adb install -r</b> installs it over v1.2 or v1.3 and keeps everything in My files. If Android reports INSTALL_FAILED_UPDATE_INCOMPATIBLE, the installed copy was signed with a different key; download your files first, then uninstall it and install v1.4.", M, y, INNER, GREEN, "#e0f3ef")
+    y = d.note("Update from v1.2, v1.3 or v1.4", "v1.4.1 uses the same app ID and signing key, so <b>adb install -r</b> installs it over v1.2, v1.3 or v1.4 and keeps everything in My files. If Android reports INSTALL_FAILED_UPDATE_INCOMPATIBLE, the installed copy was signed with a different key; download your files first, then uninstall it and install v1.4.1.", M, y, INNER, GREEN, "#e0f3ef")
     y = d.text("<b>Amazon documentation</b>", M, y, INNER, 11.5, 15) + 3
     y = d.link("Connect to Fire TV through ADB", LINKS["adb"], M, y, INNER) + 2
     y = d.link("Install and run your app (Fire TV)", LINKS["install"], M, y, INNER)
@@ -643,10 +643,10 @@ def install_guide(total=99):
     d.new_page("FIRST-RUN CHECKS", "checks")
     y = d.title("Check the app after installing", "Run these on the TV with a phone or computer on the same Wi-Fi. They take about five minutes.")
     rows = [["#", "Check", "Expected result"],
-            ["1", "Open TV File Link", "AS logo and title; focus on <b>Start transfer</b>; My files lists the library (files from v1.2 still there after an update)."],
+            ["1", "Open TV File Link", "App logo and title; focus on <b>Start transfer</b>; My files lists the library (files from v1.2 still there after an update)."],
             ["2", "Move with the D-pad", "Focus moves between Start transfer, Up, New folder, Refresh and each file's Options, with a clear gold highlight."],
             ["3", "Start transfer", "Address with http:// and port, plus a six-digit code (leading zeros shown)."],
-            ["4", "Open the address on the phone", "TV File Link page with the AS logo; number keypad for the code."],
+            ["4", "Open the address on the phone", "TV File Link page with the app logo; number keypad for the code."],
             ["5", "Enter a wrong code", "<i>That code is not correct.</i> After 3 wrong codes: a short wait message."],
             ["6", "Enter the right code", "<i>Connected to your TV.</i> and the file list."],
             ["7", "Upload two files", "Progress bar, <i>Upload complete</i>, files appear on the TV within a few seconds."],
@@ -665,7 +665,7 @@ def install_guide(total=99):
     for i, suite in enumerate(SUITES):
         d.new_page("TEST RESULTS", "results" if i == 0 else None)
         y = render_suite(d, suite)
-    y = d.note("Also verified on the build PC", "APK signature (v2 and v3) and certificate identical to v1.2; versionCode 5 / versionName 1.4; zipalign; ARM 32-bit and 64-bit libraries present. Vega app: TypeScript type check and JavaScript bundle (react-native bundle) succeed; the shared C++ with the new file actions compiles for ARM64.", M, y, INNER, GREEN, "#e0f3ef")
+    y = d.note("Also verified on the build PC", "APK signature (v2 and v3) and certificate identical to v1.2; versionCode 6 / versionName 1.4.1; zipalign; ARM 32-bit and 64-bit libraries present. Vega app: TypeScript type check and JavaScript bundle (react-native bundle) succeed; the shared C++ with the new file actions compiles for ARM64.", M, y, INNER, GREEN, "#e0f3ef")
     d.check(y, "results note")
 
     # 8 - pending

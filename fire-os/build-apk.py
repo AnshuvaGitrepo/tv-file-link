@@ -18,7 +18,7 @@ ABIS = {
     "x86_64": "x86_64-linux-android",
     "x86": "i686-linux-android",  # Android TV emulator images are 32-bit x86
 }
-VERSION_CODE, VERSION_NAME = "5", "1.4"
+VERSION_CODE, VERSION_NAME = "6", "1.4.1"
 
 
 def run(*command):

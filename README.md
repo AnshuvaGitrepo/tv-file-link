@@ -27,7 +27,7 @@
 
 | Edition | Package | Status |
 | --- | --- | --- |
-| **Fire OS 6 or newer** (Fire TV Stick, Cube, Fire TV smart TVs) | [`TV-File-Link-Fire-OS.apk`](https://github.com/AnshuvaGitrepo/tv-file-link/releases/latest) | Built and signed, v1.4. 129 of 129 automated checks passed on Android TV emulators. Not yet tested on a physical Fire TV. |
+| **Fire OS 6 or newer** (Fire TV Stick, Cube, Fire TV smart TVs) | [`TV-File-Link-Fire-OS.apk`](https://github.com/AnshuvaGitrepo/tv-file-link/releases/latest) | Built and signed, v1.4.1. 129 of 129 automated checks passed on Android TV emulators. Not yet tested on a physical Fire TV. |
 | **Vega OS** (newer Fire TV Sticks) | source in [`vega-os/`](vega-os) | Source only. The package (VPKG) must be built with the Vega SDK on Ubuntu or macOS: see [docs/VEGA-BUILD.md](docs/VEGA-BUILD.md). |
 
 The release also carries two PDF guides: the **User Guide** and the **Installation and Testing Guide**.
@@ -82,7 +82,7 @@ adb connect FIRE_TV_ADDRESS:5555
 adb install -r TV-File-Link-Fire-OS.apk
 ```
 
-Accept the debugging prompt on the TV the first time. The app appears under **Your Apps & Channels**. Version 1.4 installs over 1.2 and 1.3 and keeps My files.
+Accept the debugging prompt on the TV the first time. The app appears under **Your Apps & Channels**. Version 1.4.1 installs over 1.2, 1.3 and 1.4 and keeps My files.
 
 More: [Amazon: connect to Fire TV through ADB](https://developer.amazon.com/docs/fire-tv/connecting-adb-to-device.html).
 
