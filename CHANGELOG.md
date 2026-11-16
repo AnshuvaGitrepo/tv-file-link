@@ -3,7 +3,8 @@
 ## 1.4.1 (versionCode 6), 16 November 2026: new app icon
 
 - New TV File Link logo (a TV with a folder, two-way arrows and a Wi-Fi badge) for the Fire TV home-screen tile, the app icon, the header in the app, the browser transfer page and the Vega app. It replaces the personal AS logo.
-- No other changes. Signed with the same key, so it installs over 1.2, 1.3 and 1.4 and keeps My files.
+- No other app changes. Signed with the same key, so it installs over 1.2, 1.3 and 1.4 and keeps My files.
+- Guides: app logo in page headers and the cover illustration, download link to the GitHub release, home-screen tile screenshot, new sample pictures for the viewer screenshot, small text fixes.
 - Retested on Android TV emulators: Android 9 (file manager 27/27, transfer 38/38) and Android 11 (26/26, 38/38).
 
 ## 1.4 (versionCode 5), 16 November 2026: file manager

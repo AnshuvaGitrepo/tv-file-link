@@ -1,4 +1,4 @@
-# File manager (v1.4)
+# File manager (since v1.4)
 
 ## Locations
 
@@ -8,7 +8,7 @@
 | Internal storage (Download, Movies, Pictures ...) | YES, after storage access | NO: Vega apps only see `/data` and `/tmp` |
 | USB drive / SD card | Fire OS 8: read and write (All files access). Fire OS 6/7: **read-only** (open, copy from) | NO (no documented API) |
 
-**USB on Fire OS 6/7.** Android 7-9 let apps read removable drives but not write to them without the Storage Access Framework (a folder picker grant). The app probes each drive (creates and deletes a hidden `.tvlink-probe` file). If that fails, the tab shows "Read-only on this Fire TV ...", and New folder, Paste, Move, Rename and Delete are not offered there. Copy (to My files or Internal storage) still works. Writing to USB on Fire OS 6/7 would need a Storage Access Framework grant: a possible follow-up.
+**USB on Fire OS 6/7.** Android 7-9 let apps read removable drives but not write to them without the Storage Access Framework (a folder picker grant). The app probes each drive (creates and deletes a hidden `.tvlink-probe` file). If that fails, the tab shows "Read-only on this Fire TV ...", and New folder, Paste, Move, Rename and Delete are not offered there. Copy (to My files or Internal storage) still works. Writing to USB on Fire OS 6/7 would need a Storage Access Framework grant: a possible follow-up. The same change would also matter for Google Play, which restricts All files access (see [PUBLISHING.md](PUBLISHING.md)).
 
 Fire OS finds removable volumes with `Context.getExternalFilesDirs(null)` (index 1 and up) and labels them with `StorageVolume.getDescription()`. The app listens for drives being mounted and removed (ACTION_MEDIA_MOUNTED / UNMOUNTED / REMOVED / EJECT / BAD_REMOVAL) while it is open, and also rebuilds the list on every return to the app and on Refresh. If the open drive disappears, the app returns to My files with "<drive> is no longer available."
 

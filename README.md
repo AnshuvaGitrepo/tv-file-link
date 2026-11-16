@@ -122,7 +122,7 @@ Details, device checks and a fallback plan: [docs/VEGA-BUILD.md](docs/VEGA-BUILD
 | `fire-os/` | Android app (Java UI, file manager, viewers) and the build script |
 | `shared/` | C++ transfer server (cpp-httplib) and the browser page, used by both editions |
 | `vega-os/` | React Native for Vega app and its native module |
-| `docs/` | [File manager](docs/FILE-MANAGER.md), [testing](docs/TESTING.md), [Vega build](docs/VEGA-BUILD.md) |
+| `docs/` | [File manager](docs/FILE-MANAGER.md), [testing](docs/TESTING.md), [Vega build](docs/VEGA-BUILD.md), [publishing](docs/PUBLISHING.md), logo sources (SVG) |
 | `work/tests/` | Emulator test suites (D-pad driven, SHA-256 checked) |
 | `work/make_guides.py` | Builds the two PDF guides |
 
@@ -136,6 +136,13 @@ All checks ran on Android TV emulators (x86, 1920x1080), driving the app only wi
 | Wi-Fi transfer | 38 of 38 | 38 of 38 |
 
 Still to test on real hardware: a physical Fire TV Stick, a real USB drive on an OTG adapter, more video formats (MKV, HEVC, 4K), and the Vega edition. Full list and per-check results: [docs/TESTING.md](docs/TESTING.md).
+
+## Roadmap
+
+- Test on a physical Fire TV Stick and a real USB drive.
+- Write to USB drives on Fire OS 6/7 through a folder grant (Storage Access Framework).
+- Build and test the Vega OS package.
+- Store releases: Amazon Appstore first, then Google Play for Android TV. See [docs/PUBLISHING.md](docs/PUBLISHING.md).
 
 ## Security notes
 
