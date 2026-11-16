@@ -36,9 +36,11 @@ pdfmetrics.registerFontFamily("UI", normal="UI", bold="UI-Bold")
 INK, SUB, NAVY = "#152844", "#405673", "#0b192d"
 GOLD, RULE, PAPER, WHITE = "#ffd174", "#cfdeee", "#f0f5fb", "#ffffff"
 CYAN, BLUE, GREEN, AMBER, RED = "#7bdcf3", "#065f9e", "#087a72", "#b26712", "#b3261e"
-LOGO = ImageReader(str(ROOT / "shared" / "as-logo.png"))
+LOGO = ImageReader(str(ROOT / "shared" / "as-logo.png"))  # author logo: cover only
+APP_LOGO = ImageReader(str(ROOT / "shared" / "app-logo.png"))  # the app's own icon
 
 LINKS = {
+    "release": "https://github.com/AnshuvaGitrepo/tv-file-link/releases/latest",
     "adb": "https://developer.amazon.com/docs/fire-tv/connecting-adb-to-device.html",
     "install": "https://developer.amazon.com/docs/fire-tv/installing-and-running-your-app.html",
     "vega_sdk": "https://developer.amazon.com/docs/vega/0.23/install-vega-sdk.html",
@@ -103,13 +105,13 @@ class Doc:
         self.c.setFillColor(HexColor(color))
         self.c.circle(x, H - y, r, stroke=0, fill=1)
 
-    def framed_logo(self, x, top, side):
+    def framed_logo(self, x, top, side, logo=LOGO):
         self.rect(x, top, side, side, "#10243b", 10, "#c9a95b")
         path = self.c.beginPath()
         path.roundRect(x + 1.5, H - top - side + 1.5, side - 3, side - 3, 9)
         self.c.saveState()
         self.c.clipPath(path, stroke=0, fill=0)
-        self.c.drawImage(LOGO, x + 1.5, H - top - side + 1.5, side - 3, side - 3)
+        self.c.drawImage(logo, x + 1.5, H - top - side + 1.5, side - 3, side - 3, mask="auto")
         self.c.restoreState()
 
     def pic(self, name, x, top, w, border=True, max_h=None):
@@ -156,7 +158,7 @@ class Doc:
             self.c.addOutlineEntry(section.title(), key, level=0)
         self.rect(0, 0, W, H, PAPER)
         self.rect(0, 0, W, 66, NAVY)
-        self.framed_logo(M, 12, 40)
+        self.framed_logo(M, 12, 40, APP_LOGO)
         self.trace([(M + 51, 13), (M + 51, 53)])
         self.label(self.kicker, M + 63, 16)
         self.text(self.header_title, M + 63, 30, 230, 14, 19, WHITE, True)
@@ -276,7 +278,7 @@ def cover_art(d):
     d.dot(473, 600, 2, GOLD)
     d.rect(81, 426, 214, 128, "#101a2c", 11, "#5784a6")
     d.rect(88, 433, 200, 113, "#172b47", 7)
-    d.framed_logo(100, 444, 31)
+    d.framed_logo(100, 444, 31, APP_LOGO)
     d.text("TV File Link", 139, 449, 135, 15, 19, WHITE, True)
     d.rect(101, 486, 86, 36, "#102038", 5, "#345a7e")
     d.label("TV CODE", 109, 491, CYAN, 6.2)
@@ -293,7 +295,7 @@ def cover_art(d):
     d.rect(409, 408, 99, 168, "#0d1729", 14, "#5784a6")
     d.rect(415, 420, 87, 143, "#172b47", 8)
     d.rect(441, 413, 34, 2, "#5784a6", 1)
-    d.framed_logo(426, 435, 22)
+    d.framed_logo(426, 435, 22, APP_LOGO)
     d.text("Browser", 426, 465, 67, 11, 14, WHITE, True)
     d.rect(426, 487, 64, 17, "#102038", 5, "#345a7e")
     d.text("042615", 433, 489, 52, 8.5, 11, GOLD, True, "Mono-Bold")
@@ -382,7 +384,7 @@ def user_guide(total=99):
             "Send files from a phone, tablet, or computer to your TV, and download them back, using only a web browser on the same Wi-Fi network. No extra app is needed on the other device.",
             [("START TRANSFER", "On your Fire TV", "start"), ("CONNECT", "With a six-digit code", "connect"),
              ("SEND AND RECEIVE", "In your browser", "use")], cover_art,
-            ("Before you start", "Install TV File Link on the Stick and keep your phone, tablet, or computer on the same Wi-Fi network."))
+            ("Before you start", "Download TV-File-Link-Fire-OS.apk from github.com/AnshuvaGitrepo/tv-file-link/releases, install it on the Stick (see the Installation and Testing Guide), and keep your phone, tablet, or computer on the same Wi-Fi network."))
 
     # 2 - The app on the TV
     d.new_page("THE APP ON YOUR TV", "start")
@@ -551,7 +553,7 @@ def install_guide(total=99):
     d.new_page("WHICH PACKAGE", "packages")
     y = d.title("Pick the package for your Stick", "Check the OS under Settings > My Fire TV (or Device & Software) > About on the TV.")
     rows = [["TV operating system", "Package", "Status"],
-            ["<b>Fire OS</b> 6, 7 or 8 (Android-based Fire TV Sticks and Fire TV devices)", "fire-os/TV-File-Link-Fire-OS.apk", "BUILT  signed APK, v1.4.1"],
+            ["<b>Fire OS</b> 6, 7 or 8 (Android-based Fire TV Sticks and Fire TV devices)", "TV-File-Link-Fire-OS.apk (GitHub release)", "BUILT  signed APK, v1.4.1"],
             ["<b>Vega OS</b> (Fire TV devices that run Amazon's Vega OS)", "vega-os/build/*.vpkg (to be produced)", "PENDING  source only"]]
     y = d.table(rows, [205, 175, INNER - 380], M, y, status_col=2, size=9.4)
     y = d.text("<b>Fire OS APK facts</b> (verified with apksigner and aapt2 on the build PC)", M, y + 4, INNER, 12, 16, INK) + 6
@@ -577,7 +579,8 @@ def install_guide(total=99):
     y = d.text("<b>Prerequisites</b>", M, y, INNER, 12, 16) + 4
     for item in ["A computer with Android SDK Platform-Tools (adb) on the same network as the Stick.",
                  "On the TV: Settings &gt; My Fire TV &gt; About, select the device name 7 times to show Developer Options (newer Fire OS), then turn on <b>ADB debugging</b>.",
-                 "The Stick's IP address from Settings &gt; My Fire TV &gt; About &gt; Network."]:
+                 "The Stick's IP address from Settings &gt; My Fire TV &gt; About &gt; Network.",
+                 "The APK: download <b>TV-File-Link-Fire-OS.apk</b> from the latest GitHub release (link below)."]:
         y = d.text("&bull;&nbsp; " + item, M + 8, y, INNER - 8, 10.3, 14.5, SUB) + 3
     y += 6
     y = d.step(1, "Connect to the Stick", "Run the command below. Accept the <b>Allow USB debugging</b> prompt on the TV the first time.", M, y, INNER)
@@ -586,9 +589,12 @@ def install_guide(total=99):
         d.text(cmd, M + 44, y - 1, INNER - 50, 10, 13, GOLD, False, "Mono")
         y += 26
     y = d.text("Replace FIRE_TV_IP with the Stick's address. <b>-r</b> replaces an installed copy and keeps its files.", M + 34, y, INNER - 34, 9.5, 13, SUB) + 12
-    y = d.step(2, "Open the app", "TV File Link appears in Your Apps &amp; Channels with the AS banner. You can also use the third command above.", M, y, INNER)
+    y = d.step(2, "Open the app", "TV File Link appears in Your Apps &amp; Channels with its own tile (below). You can also use the third command above.", M, y, INNER)
+    y = d.pic("tv-home-tile-emulator.png", M + 34, y, 320) + 4
+    y = d.text("The app tile on the Android TV emulator home screen.", M + 34, y, 320, 8.6, 12, SUB) + 8
     y = d.note("Update from v1.2, v1.3 or v1.4", "v1.4.1 uses the same app ID and signing key, so <b>adb install -r</b> installs it over v1.2, v1.3 or v1.4 and keeps everything in My files. If Android reports INSTALL_FAILED_UPDATE_INCOMPATIBLE, the installed copy was signed with a different key; download your files first, then uninstall it and install v1.4.1.", M, y, INNER, GREEN, "#e0f3ef")
-    y = d.text("<b>Amazon documentation</b>", M, y, INNER, 11.5, 15) + 3
+    y = d.text("<b>Download and documentation</b>", M, y, INNER, 11.5, 15) + 3
+    y = d.link("Latest release: APK and guides (GitHub)", LINKS["release"], M, y, INNER) + 2
     y = d.link("Connect to Fire TV through ADB", LINKS["adb"], M, y, INNER) + 2
     y = d.link("Install and run your app (Fire TV)", LINKS["install"], M, y, INNER)
     d.check(y, "fire os install")
@@ -627,7 +633,7 @@ def install_guide(total=99):
         d.text(cmd, M + 44, y - 2, INNER - 50, 10, 13, GOLD, False, "Mono")
         y += 23
     y = d.text("The script generates the browser page, builds the native transfer module and packages the app. The VPKG appears under <b>vega-os/build/</b>; pick the one whose architecture matches your Stick. Copy it back into the project's vega-os folder.", M + 34, y + 2, INNER - 34, 10, 14, SUB) + 10
-    y = d.step(2, "Install and run", "Install the VPKG on the Stick with the Vega CLI as described in Amazon's run-app guide, then open TV File Link and run the first-run checks on page 5.", M, y, INNER)
+    y = d.step(2, "Install and run", "Install the VPKG on the Stick with the Vega CLI as described in Amazon's run-app guide, then open TV File Link and run the first-run checks on the next page.", M, y, INNER)
     y = d.note("Incoming connections still need proof on a Vega Stick", "The Vega app runs the same local web server as Fire OS. Amazon's documentation does not describe a privilege for accepting incoming connections, so it must be confirmed on a real Vega Stick. If Vega blocks them, the smallest working alternative is a relay: TV and browser both connect out to a small server, which passes the code check and the files. That needs internet access (or a computer on the network running the relay), so files would no longer stay purely between the two devices.", M, y, INNER, AMBER, "#fdf3e4")
     y = d.text("<b>Amazon documentation</b>", M, y, INNER, 11.5, 15) + 3
     pairs = [("Install the Vega developer tools", "vega_sdk"), ("Build your app (Vega)", "vega_build"),
@@ -648,7 +654,7 @@ def install_guide(total=99):
             ["3", "Start transfer", "Address with http:// and port, plus a six-digit code (leading zeros shown)."],
             ["4", "Open the address on the phone", "TV File Link page with the app logo; number keypad for the code."],
             ["5", "Enter a wrong code", "<i>That code is not correct.</i> After 3 wrong codes: a short wait message."],
-            ["6", "Enter the right code", "<i>Connected to your TV.</i> and the file list."],
+            ["6", "Enter the right code", "The message <i>Connected to your TV</i> and the file list."],
             ["7", "Upload two files", "Progress bar, <i>Upload complete</i>, files appear on the TV within a few seconds."],
             ["8", "Upload the same file again", "<i>\"name\" already exists in this folder ...</i>"],
             ["9", "Download a file", "The downloaded file opens and matches the original."],

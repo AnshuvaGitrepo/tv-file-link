@@ -20,7 +20,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import emulator_test as t  # shared helpers: adb, ui_nodes, focus_to, key, http API ...
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 PKG = t.PKG
 DEV = "/sdcard/Download/TVFL-Test"
@@ -39,11 +39,28 @@ def sh(cmd, check=False):
 
 def make_assets(folder: Path):
     folder.mkdir(parents=True, exist_ok=True)
-    for name, color, label in (("photo1.png", (14, 19, 30), "Photo 1"), ("photo2.png", (180, 140, 60), "Photo 2")):
-        img = Image.new("RGB", (1280, 720), color)
+    # Two drawn sample "photos" (sunset and daytime landscape) so viewer screenshots show a real picture
+    scenes = (("photo1.png", "Sample photo 1", ((255, 170, 90), (120, 60, 140)), (255, 220, 120), ((60, 40, 90), (35, 25, 60)), (40, 60, 110)),
+              ("photo2.png", "Sample photo 2", ((120, 190, 245), (215, 235, 250)), (255, 245, 200), ((70, 130, 80), (40, 95, 60)), (60, 130, 190)))
+    for name, label, (top, bottom), sun, (far, near), water in scenes:
+        img = Image.new("RGB", (1280, 720))
         d = ImageDraw.Draw(img)
-        d.rectangle((80, 80, 1200, 640), outline=(244, 214, 140), width=12)
-        d.text((560, 340), label, fill=(255, 255, 255))
+        for y in range(470):  # sky gradient
+            f = y / 469
+            d.line((0, y, 1280, y), fill=tuple(int(a + (b - a) * f) for a, b in zip(top, bottom)))
+        d.ellipse((860, 150, 1020, 310), fill=sun)
+        d.polygon([(0, 470), (180, 300), (330, 410), (520, 250), (760, 440), (980, 330), (1280, 470)], fill=far)
+        d.rectangle((0, 465, 1280, 520), fill=near)
+        d.polygon([(0, 520), (260, 400), (470, 500), (700, 420), (1000, 520), (1280, 430), (1280, 520)], fill=near)
+        d.rectangle((0, 520, 1280, 720), fill=water)
+        for i in range(8):  # light on the water
+            y = 545 + i * 21
+            d.line((900 - 70 + i * 6, y, 980 - i * 6, y), fill=sun, width=4)
+        try:
+            font = ImageFont.truetype("segoeuib.ttf", 44)
+        except OSError:
+            font = ImageFont.load_default()
+        d.text((60, 640), label, fill=(255, 255, 255), font=font)
         img.save(folder / name)
     (folder / "notes.txt").write_text("TV File Link notes\nLine two: file manager test\n" + "x" * 200 + "\nEND OF NOTES\n", encoding="utf-8")
     with wave.open(str(folder / "song.wav"), "wb") as w:  # 30 s, 440 Hz tone

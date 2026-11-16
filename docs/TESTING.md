@@ -24,14 +24,15 @@ SHA-256. While video is drawing, uiautomator cannot read the screen, so playback
 
 ## Summary
 
-Final run on the v1.4.1 release APK (16 November 2026), first attempt on both emulators. The only retry was a
-location tab that switched on the second key press (listed in the file manager results).
+Final run on the v1.4.1 release APK (16 November 2026), first attempt on both emulators. The Android 11 file
+manager suite was run once more afterwards with new sample pictures for the guide screenshots; its results are below.
+The only retries were location tabs that switched on the second key press (listed in the file manager results).
 
 | Suite | Emulator | Passed | Failed | Pending | Date |
 |---|---|---|---|---|---|
 | Wi-Fi transfer | Android 11 (API 30) | 38 | 0 | 0 | 2026-11-16 20:01 |
 | Wi-Fi transfer | Android 9 (API 28) | 38 | 0 | 0 | 2026-11-16 19:20 |
-| File manager | Android 11 (API 30) | 26 | 0 | 0 | 2026-11-16 20:01 |
+| File manager | Android 11 (API 30) | 26 | 0 | 0 | 2026-11-16 21:11 |
 | File manager | Android 9 (API 28) | 27 | 0 | 0 | 2026-11-16 19:20 |
 
 ## Wi-Fi transfer: Android 11 (API 30)
@@ -138,8 +139,8 @@ location tab that switched on the second key press (listed in the file manager r
 | 12 | Audio player plays, Select pauses and resumes | PASS | audio service: started -> paused -> started |
 | 13 | Back closes the player and stops playback | PASS | audio service after Back: released |
 | 14 | Video player opens and plays the MP4 (H.264) | PASS | media.player shows the app's video/avc session |
-| 15 | Details shows type, size and date | PASS | photo1.png Type: image/png Size: 4.7 KB (4859 bytes) Modified: Nov 16, 2026 2:02 PM Location: Internal storage / Download/TVFL-Test OK |
-| 16 | Sort by size puts the largest file first | PASS | order: song.wav, clip.mp4, photo2.png, photo1.png, notes.txt |
+| 15 | Details shows type, size and date | PASS | photo1.png Type: image/png Size: 15 KB (15487 bytes) Modified: Nov 16, 2026 3:12 PM Location: Internal storage / Download/TVFL-Test OK |
+| 16 | Sort by size puts the largest file first | PASS | order: song.wav, clip.mp4, photo1.png, photo2.png, notes.txt |
 | 17 | Copy from internal storage, Paste into My files | PASS | button 'Paste: photo1.png'; My files: ['photo1.png'] |
 | 18 | Move from internal storage into My files (original removed) | PASS | button 'Move here: notes.txt' pressed=True (focus before: Location My files); app: ['Moved notes.txt.']; source gone=True; My files: ['photo1.png', 'notes.txt'] |
 | 19 | Copy to My files copies a folder with subfolders | PASS | Holiday, photo1.png, notes.txt |
