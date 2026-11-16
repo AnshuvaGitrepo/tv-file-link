@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="shared/as-logo.png" alt="AS logo" width="160">
+  <img src="docs/banner.svg" alt="TV File Link banner" width="100%">
 </p>
 
 <h1 align="center">TV File Link</h1>
@@ -152,6 +152,6 @@ See [CHANGELOG.md](CHANGELOG.md).
 [MIT](LICENSE) &copy; 2026 Anshuva Samanta. Includes [cpp-httplib](https://github.com/yhirose/cpp-httplib) (MIT).
 
 <p align="center">
-  <img src="fire-os/app/src/main/res/drawable/banner.png" alt="TV File Link banner" width="240"><br>
+  <img src="docs/logo.svg" alt="TV File Link logo" width="72"><br>
   <sub>Prepared by Anshuva Samanta</sub>
 </p>
