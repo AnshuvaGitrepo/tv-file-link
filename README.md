@@ -156,7 +156,7 @@ See [CHANGELOG.md](CHANGELOG.md).
 
 ## License
 
-[MIT](LICENSE) &copy; 2026 Anshuva Samanta. Includes [cpp-httplib](https://github.com/yhirose/cpp-httplib) (MIT).
+[MIT](LICENSE) © 2026 AnshuvaGitrepo. Includes [cpp-httplib](https://github.com/yhirose/cpp-httplib) (MIT).
 
 <p align="center">
   <img src="docs/logo.svg" alt="TV File Link logo" width="72"><br>
